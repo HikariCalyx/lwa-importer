@@ -1,5 +1,5 @@
 <template>
-  <div class="container">
+  <div id="app" class="container">
     <h2>Foreigner Character Importer for Lotte World Adventure</h2>
 
     <div class="form-grid">
@@ -12,6 +12,18 @@
       </select>
 
       <button @click="searchCharacter">Search</button>
+    </div>
+
+    <div v-if="!(imageUrl && regionImageUrl)">
+      <p><h4>How to use this page?</h4></p>
+      <p><ul>
+        <li>Input the character name of the region you're currently playing at.</li>
+        <li>Select the game region. CMS and MSN are not supported due to technical limitations.</li>
+        <li>Tap Search, and check if your character looks as you would expect on large screen.</li>
+        <li>If yes, tap "Generate QR", walk to the QR scanner under the large screen and scan it.</li>
+        <li>That's all.</li>
+      </ul></p>
+      <p>Character doesn't look right? That's because you're using gears, face, hair that unavailable in KMS.</p>
     </div>
 
     <div v-if="error" class="error">{{ error }}</div>
@@ -115,7 +127,7 @@ async function searchCharacter() {
         regionImageUrl.value = `${selected.prefix}${data.avatarCode}${selected.suffix}`
       }
       if (region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU') {
-        warning.value = '⚠️ Notice: IGN cannot be rendered properly due to limitation.'
+        warning.value = '⚠️ Notice: If you import character from GMS, your IGN cannot be displayed in the huge screen due to limitation.'
       }
       avatarCode.value = data.avatarCode
     } else {
@@ -158,6 +170,18 @@ onBeforeUnmount(() => {
   padding: 1em;
   max-width: 600px;
   margin: auto;
+}
+
+#app {
+  background-image: url('back.jpg');
+  background-size: cover;
+  /* scale to fill */
+  background-position: center;
+  /* center the image */
+  background-repeat: no-repeat;
+  /* avoid tiling */
+  min-height: 100vh;
+  /* full viewport height */
 }
 
 .form-grid {
