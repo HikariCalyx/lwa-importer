@@ -28,3 +28,5 @@ Valid response body example:
     "status": "Ok"
 }
 ```
+
+The avatarCode will be obtained from readily available API.
