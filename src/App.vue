@@ -71,7 +71,7 @@ import QrcodeVue from 'qrcode.vue'
 
 
 const qrValue = ref('')
-const qrSize = ref(600) // default
+const qrSize = ref(400) // default
 const name = ref('')
 const region = ref('')
 const imageUrl = ref('')
