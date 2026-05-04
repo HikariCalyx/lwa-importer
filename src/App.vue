@@ -15,15 +15,18 @@
     </div>
 
     <div v-if="!(imageUrl && regionImageUrl)">
-      <p><h4>How to use this page?</h4></p>
-      <p><ul>
+      <p>
+      <h4>How to use this page?</h4>
+      </p>
+      <p>
+      <ul>
         <li>Input the character name of the region you're currently playing at.</li>
         <li>Select the game region. CMS and MSN are not supported due to technical limitations.</li>
         <li>Tap Search, and check if your character looks as you would expect on large screen.</li>
-        <li>If yes, tap "Generate QR", walk to the QR scanner under the large screen and scan it.</li>
+        <li>If yes, tap "Generate QR", walk to the QR scanner under the big screen and scan it.</li>
         <li>That's all.</li>
-      </ul></p>
-      <p>Character doesn't look right? That's because you're using gears, face, hair that unavailable in KMS.</p>
+      </ul>
+      </p>
     </div>
 
     <div v-if="error" class="error">{{ error }}</div>
@@ -48,8 +51,9 @@
     <!-- Confirm button -->
     <div v-if="warning" class="warning">{{ warning }}</div>
     <div v-if="!loading && imageUrl && regionImageUrl && !confirmed" class="actions">
-      Is previewed image OK for push? If yes, please click Generate QR code.<br />You may change your name in the text
-      box before generating the QR code.
+      <p>Character doesn't look right? That's because you're using gears, face, hair that unavailable in KMS.</p>
+      <p>If you think it's still OK to push, please click Generate QR code.<br />You may change your name in the text
+        box before generating the QR code.</p>
       <button class="full-width-btn" @click="confirmImages">Generate QR</button>
     </div>
 
@@ -69,7 +73,7 @@ import QrcodeVue from 'qrcode.vue'
 
 
 const qrValue = ref('')
-const qrSize = ref(800) // default
+const qrSize = ref(600) // default
 const name = ref('')
 const region = ref('')
 const imageUrl = ref('')
@@ -127,7 +131,9 @@ async function searchCharacter() {
         regionImageUrl.value = `${selected.prefix}${data.avatarCode}${selected.suffix}`
       }
       if (region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU') {
-        warning.value = '⚠️ Notice: If you import character from GMS, your IGN cannot be displayed in the huge screen due to limitation.'
+        warning.value = '⚠️ Notice: If you import character from GMS, your IGN cannot be displayed on the huge screen due to limitation.'
+      } else {
+        warning.value = ''
       }
       avatarCode.value = data.avatarCode
     } else {
@@ -170,6 +176,10 @@ onBeforeUnmount(() => {
   padding: 1em;
   max-width: 600px;
   margin: auto;
+}
+
+body {
+  margin: 0;
 }
 
 #app {
@@ -300,6 +310,42 @@ onBeforeUnmount(() => {
   background-color: #2980b9;
 }
 
+.image-table {
+  width: 100%;
+  border-collapse: collapse;
+  text-align: center;
+}
+
+.image-cell img {
+  max-width: 100%;
+  height: auto;
+}
+
+.image-table td {
+  vertical-align: top;
+  padding: 8px;
+}
+
+@media (max-width: 600px) {
+
+  .image-table,
+  .image-table tbody,
+  .image-table tr,
+  .image-table td {
+    display: block;
+    width: 100%;
+  }
+
+  .image-table tr {
+    margin-bottom: 1rem;
+  }
+
+  .caption-cell {
+    text-align: center;
+    font-weight: bold;
+    margin-bottom: 1rem;
+  }
+}
 
 @keyframes spin {
   0% {
