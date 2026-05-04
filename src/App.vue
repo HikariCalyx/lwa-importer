@@ -66,7 +66,7 @@
 </template>
 
 <script setup>
-import { ref, onMounted, onBeforeUnmount } from 'vue'
+import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 
 
@@ -148,6 +148,20 @@ function confirmImages() {
   confirmed.value = true
   const encodedName = encodeURIComponent(name.value)
   qrValue.value = `01/${avatarCode.value}|${encodedName}|0|0|1|1`
+
+  nextTick(() => {
+    updateQrSize()
+    // Extra force repaint for mobile canvas issues
+    setTimeout(() => {
+      const canvas = document.querySelector('.qr-section canvas')
+      if (canvas) {
+        canvas.style.display = 'none'
+        // Trigger reflow
+        void canvas.offsetHeight
+        canvas.style.display = 'block'
+      }
+    }, 50)
+  })
 }
 
 function updateQrSize() {
