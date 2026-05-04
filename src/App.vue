@@ -37,14 +37,12 @@
         <tr>
           <td class="image-cell">
             <img :src="imageUrl" alt="Your avatar in Lotte World" />
+            <div class="caption-cell">Your avatar in Lotte World</div>
           </td>
           <td class="image-cell">
             <img :src="regionImageUrl" alt="Your avatar in game (for reference)" />
+            <div class="caption-cell">Your avatar in game (for reference)</div>
           </td>
-        </tr>
-        <tr>
-          <td class="caption-cell">Your avatar in Lotte World</td>
-          <td class="caption-cell">Your avatar in game (for reference)</td>
         </tr>
       </tbody>
     </table>
@@ -242,27 +240,6 @@ body {
   /* keep crisp edges */
 }
 
-.image-table {
-  border-collapse: collapse;
-  margin: auto;
-  /* center the table itself */
-}
-
-.image-cell {
-  text-align: center;
-  /* center content inside each cell */
-  vertical-align: middle;
-  /* vertically align images */
-  padding: 0.5em;
-}
-
-.image-cell img {
-  display: block;
-  margin: auto;
-  image-rendering: pixelated;
-  /* crisp scaling */
-}
-
 .scaled img {
   display: block;
 }
@@ -316,16 +293,26 @@ body {
   text-align: center;
 }
 
-.image-cell img {
-  max-width: 100%;
-  height: auto;
-}
-
-.image-table td {
-  vertical-align: top;
+.image-cell {
+  vertical-align: middle;
+  /* ensures both images align vertically */
   padding: 8px;
 }
 
+.image-cell img {
+  max-width: 100%;
+  height: auto;
+  display: block;
+  margin: 0 auto;
+}
+
+.caption-cell {
+  margin-top: 0.5rem;
+  font-weight: bold;
+  text-align: center;
+}
+
+/* Mobile: stack image + caption together */
 @media (max-width: 600px) {
 
   .image-table,
@@ -336,14 +323,8 @@ body {
     width: 100%;
   }
 
-  .image-table tr {
-    margin-bottom: 1rem;
-  }
-
-  .caption-cell {
-    text-align: center;
-    font-weight: bold;
-    margin-bottom: 1rem;
+  .image-cell {
+    margin-bottom: 1.5rem;
   }
 }
 
