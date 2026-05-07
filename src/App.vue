@@ -147,7 +147,7 @@ async function searchCharacter() {
 function confirmImages() {
   confirmed.value = true
   const encodedName = encodeURIComponent(name.value)
-  qrValue.value = `01/${avatarCode.value}|${encodedName}|0|0|1|1`
+  qrValue.value = `01/${avatarCode.value}|${encodedName}|0|1|1|1`
 
   nextTick(() => {
     updateQrSize()
