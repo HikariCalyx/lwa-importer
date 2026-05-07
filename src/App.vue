@@ -130,6 +130,10 @@ async function searchCharacter() {
       }
       if (region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU') {
         warning.value = '⚠️ Notice: If you import character from GMS, your IGN cannot be displayed on the huge screen due to limitation.'
+      } else if (region.value === 'TerryMS_Island') {
+        warning.value = '⚠️ 注意：如果你的角色名包含中文，可能無法推送。請在上方的文本框修改角色名後生成QR。'
+      } else if (region.value === 'ZipanguMS') {
+        warning.value = '⚠️ 注：お名前にかなや漢字が含まれている場合、送信されない可能性があります。上のテキストボックスで文字名を変更してから、QRコードを生成してください。'
       } else {
         warning.value = ''
       }
