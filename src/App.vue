@@ -21,11 +21,15 @@
       <p>
       <ul>
         <li>Input the character name of the region you're currently playing at.</li>
-        <li>Select the game region. CMS and MSN are not supported due to technical limitations.</li>
+        <li>Select the game region. </li>
         <li>Tap Search, and check if your character looks as you would expect on large screen.</li>
         <li>If yes, tap "Generate QR", walk to the QR scanner under the big screen and scan it.</li>
         <li>That's all.</li>
       </ul>
+      </p>
+      <p>
+      <h4><a href="http://gitee.com/HikariCalyx/WzComparerR2-JMS/releases/latest" target="_blank">国服（冒险岛 Online）因未接入
+          OpenAPI 故暂时不支持。请改为使用 WzComparerR2-NTMS （需在电脑操作）。</a></h4>
       </p>
     </div>
 
@@ -81,6 +85,7 @@ const loading = ref(false)
 const confirmed = ref(false)
 const warning = ref('')
 const avatarCode = ref('')
+const confirmMessage = ref('')
 
 // Define regions with display label, actual value, and region-specific prefix
 const regions = [
@@ -89,7 +94,8 @@ const regions = [
   { label: 'KMS', value: 'ChangseopMS', prefix: 'https://open.api.nexon.com/static/maplestory/character/look/', suffix: '?.png' },
   { label: 'JMS', value: 'ZipanguMS', prefix: 'https://avatar-maplestory.nexon.co.jp/Character/', suffix: '.png' },
   { label: 'TMS', value: 'TerryMS_Island', prefix: 'https://open.api.nexon.com/static/maplestorytw/character/look/', suffix: '?.png' },
-  { label: 'MSEA', value: 'TerryMS_Peninsula', prefix: 'https://open.api.nexon.com/static/maplestorysea/character/look/', suffix: '?.png' }
+  { label: 'MSEA', value: 'TerryMS_Peninsula', prefix: 'https://open.api.nexon.com/static/maplestorysea/character/look/', suffix: '?.png' },
+  { label: 'MSN', value: 'TunerMS', prefix: 'https://gamedatahub-static.msu.io/msu/platform/charimages/static/', suffix: '.png' }
 ]
 
 region.value = regions[0].value
@@ -126,16 +132,22 @@ async function searchCharacter() {
       // Second image: region-specific prefix
       const selected = regions.find(r => r.value === region.value)
       if (selected) {
-        regionImageUrl.value = `${selected.prefix}${data.avatarCode}${selected.suffix}`
+        if (region.value === 'TunerMS') {
+          regionImageUrl.value = `${selected.prefix}${data.msnAvatarCode}${selected.suffix}`
+        } else {
+          regionImageUrl.value = `${selected.prefix}${data.avatarCode}${selected.suffix}`
+        }
       }
       if (region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU') {
         warning.value = '⚠️ Notice: If you import character from GMS, your IGN cannot be displayed on the huge screen due to limitation.'
+        confirmMessage.value = 'Character doesn\'t look right ? That\'s because you\'re using gears, face, hair that unavailable in KMS.'
       } else if (region.value === 'TerryMS_Island') {
         warning.value = '⚠️ 注意：如果你的角色名包含中文，可能無法推送。請在上方的文本框修改角色名後生成QR。'
       } else if (region.value === 'ZipanguMS') {
         warning.value = '⚠️ 注：お名前にかなや漢字が含まれている場合、送信されない可能性があります。上のテキストボックスで文字名を変更してから、QRコードを生成してください。'
       } else {
         warning.value = ''
+        confirmMessage.value = 'Character doesn\'t look right ? That\'s because you\'re using gears, face, hair that unavailable in KMS.'
       }
       avatarCode.value = data.avatarCode
     } else {
