@@ -54,7 +54,7 @@
     <!-- Confirm button -->
     <div v-if="warning" class="warning">{{ warning }}</div>
     <div v-if="!loading && imageUrl && regionImageUrl && !confirmed" class="actions">
-      <p>Character doesn't look right? That's because you're using gears, face, hair that unavailable in KMS.</p>
+      <p>{{ confirmMessage }}</p>
       <p>If you think it's still OK to push, please click Generate QR code.<br />You may change your name in the text
         box before generating the QR code.</p>
       <button class="full-width-btn" @click="confirmImages">Generate QR</button>
