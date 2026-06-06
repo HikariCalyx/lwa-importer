@@ -27,11 +27,12 @@
         <li>That's all.</li>
       </ul>
       </p>
-      <p>
-      <h4><a href="http://gitee.com/HikariCalyx/WzComparerR2-JMS/releases/latest" target="_blank">正在游玩 CMS (中国大陆版冒险岛
-          Online)
-          的玩家，请使用此工具。</a></h4>
-      </p>
+      <div v-if="isZhCN">
+        <p>
+        <h4><a href="https://qm.qq.com/q/mFVMcFf4xq" target="_blank">如果你是正在游玩 CMS
+            (中国大陆版冒险岛 Online) 的玩家，请加入我们的QQ群：335668600，了解如何将你在 CMS 的角色制作成二维码推送上乐天世界大屏幕。</a></h4>
+        </p>
+      </div>
     </div>
 
     <div v-if="error" class="error">{{ error }}</div>
@@ -75,7 +76,7 @@
 import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 
-
+const isZhCN = ref(false)
 const qrValue = ref('')
 const qrSize = ref(400) // default
 const name = ref('')
@@ -102,6 +103,11 @@ const regions = [
 ]
 
 region.value = regions[0].value
+
+onMounted(() => {
+  const lang = navigator.language || navigator.userLanguage
+  isZhCN.value = lang.toLowerCase().startsWith('zh-cn')
+})
 
 async function searchCharacter() {
   error.value = ''
@@ -150,7 +156,7 @@ async function searchCharacter() {
       } else if (region.value === 'ZipanguMS') {
         warning.value = '⚠️ 注：お名前にかなや漢字が含まれている場合、送信されない可能性があります。上のテキストボックスで文字名を変更してから、QRコードを生成してください。'
         confirmMessage.value = 'キャラクターの見た目がおかしい？それは、KMSでは利用できない装備、顔、髪型を使用しているためです。'
-        jmsConfirmMsg = ref('<p><a href="https://mushroom-lab.com/my-tools/lotte-world-qr" target="_blank">メイプル研究所のサイトを使ってQRコードを生成することもできます。</a></p>')
+        jmsConfirmMsg.value = '<p><a href="https://mushroom-lab.com/my-tools/lotte-world-qr" target="_blank">メイプル研究所のサイトを使ってQRコードを生成することもできます。</a></p>'
       } else {
         warning.value = ''
         confirmMessage.value = ''
