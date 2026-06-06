@@ -55,6 +55,7 @@
     <div v-if="warning" class="warning">{{ warning }}</div>
     <div v-if="!loading && imageUrl && regionImageUrl && !confirmed" class="actions">
       <p>{{ confirmMessage }}</p>
+      <div v-html="jmsConfirmMsg"></div>
       <p>If you think it's still OK to push, please click Generate QR code.<br />You may change your name in the text
         box before generating the QR code.</p>
       <button class="full-width-btn" @click="confirmImages">Generate QR</button>
@@ -87,6 +88,7 @@ const confirmed = ref(false)
 const warning = ref('')
 const avatarCode = ref('')
 const confirmMessage = ref('')
+const jmsConfirmMsg = ref('')
 
 // Define regions with display label, actual value, and region-specific prefix
 const regions = [
@@ -147,7 +149,8 @@ async function searchCharacter() {
         confirmMessage.value = '角色看起來不對勁？這是因為你的角色正在使用韓版沒有的時裝/裝備/髮型/臉型/皮膚。'
       } else if (region.value === 'ZipanguMS') {
         warning.value = '⚠️ 注：お名前にかなや漢字が含まれている場合、送信されない可能性があります。上のテキストボックスで文字名を変更してから、QRコードを生成してください。'
-        confirmMessage.value = 'キャラクターの見た目がおかしい？それは、KMSでは利用できない装備、顔、髪型を使用しているためです。<br /><a href="https://mushroom-lab.com/my-tools/lotte-world-qr" target="_blank">メイプル研究所のサイトを使ってQRコードを生成することもできます。</a>'
+        confirmMessage.value = 'キャラクターの見た目がおかしい？それは、KMSでは利用できない装備、顔、髪型を使用しているためです。'
+        jmsConfirmMsg = ref('<p><a href="https://mushroom-lab.com/my-tools/lotte-world-qr" target="_blank">メイプル研究所のサイトを使ってQRコードを生成することもできます。</a></p>')
       } else {
         warning.value = ''
         confirmMessage.value = ''
