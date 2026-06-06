@@ -28,8 +28,9 @@
       </ul>
       </p>
       <p>
-      <h4><a href="http://gitee.com/HikariCalyx/WzComparerR2-JMS/releases/latest" target="_blank">国服（冒险岛 Online）因未接入
-          OpenAPI 故暂时不支持。请改为使用 WzComparerR2-NTMS （需在电脑操作）。</a></h4>
+      <h4><a href="http://gitee.com/HikariCalyx/WzComparerR2-JMS/releases/latest" target="_blank">正在游玩 CMS (中国大陆版冒险岛
+          Online)
+          的玩家，请使用此工具。</a></h4>
       </p>
     </div>
 
@@ -138,16 +139,18 @@ async function searchCharacter() {
           regionImageUrl.value = `${selected.prefix}${data.avatarCode}${selected.suffix}`
         }
       }
-      if (region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU') {
-        warning.value = '⚠️ Notice: If you import character from GMS, your IGN cannot be displayed on the huge screen due to limitation.'
+      if (region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU' || region.value === 'TunerMS') {
+        warning.value = '⚠️ Notice: If you import character from this region, your IGN cannot be displayed on the huge screen due to limitation.'
         confirmMessage.value = 'Character doesn\'t look right ? That\'s because you\'re using gears, face, hair that unavailable in KMS.'
       } else if (region.value === 'TerryMS_Island') {
         warning.value = '⚠️ 注意：如果你的角色名包含中文，可能無法推送。請在上方的文本框修改角色名後生成QR。'
+        confirmMessage.value = '角色看起來不對勁？這是因為你的角色正在使用韓版沒有的時裝/裝備/髮型/臉型/皮膚。'
       } else if (region.value === 'ZipanguMS') {
         warning.value = '⚠️ 注：お名前にかなや漢字が含まれている場合、送信されない可能性があります。上のテキストボックスで文字名を変更してから、QRコードを生成してください。'
+        confirmMessage.value = 'キャラクターの見た目がおかしい？それは、KMSでは利用できない装備、顔、髪型を使用しているためです。<br /><a href="https://mushroom-lab.com/my-tools/lotte-world-qr" target="_blank">メイプル研究所のサイトを使ってQRコードを生成することもできます。</a>'
       } else {
         warning.value = ''
-        confirmMessage.value = 'Character doesn\'t look right ? That\'s because you\'re using gears, face, hair that unavailable in KMS.'
+        confirmMessage.value = ''
       }
       avatarCode.value = data.avatarCode
     } else {
