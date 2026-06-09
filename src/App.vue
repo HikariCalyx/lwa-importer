@@ -116,6 +116,9 @@ async function searchCharacter() {
   confirmed.value = false
   qrValue.value = ''
   loading.value = true
+  warning.value = ''
+  confirmMessage.value = ''
+  jmsConfirmMsg.value = ''
 
   if (!name.value.trim() || !region.value.trim()) {
     error.value = 'Please enter valid IGN.'
@@ -191,6 +194,7 @@ async function searchCharacter() {
       } else {
         warning.value = ''
         confirmMessage.value = ''
+        jmsConfirmMsg.value = ''
       }
       avatarCode.value = data.avatarCode
     } else {
