@@ -97,6 +97,7 @@ const regions = [
   { label: 'GMS Europe', value: 'InkwellMS_EU', prefix: 'https://msavatar1.nexon.net/Character/', suffix: '.png' },
   { label: 'KMS', value: 'ChangseopMS', prefix: 'https://open.api.nexon.com/static/maplestory/character/look/', suffix: '?.png' },
   { label: 'JMS', value: 'ZipanguMS', prefix: 'https://avatar-maplestory.nexon.co.jp/Character/', suffix: '.png' },
+  { label: 'CMS', value: 'TerryMS_Continent', prefix: 'https://open.api.nexon.com/static/maplestorycn/character/look/', suffix: '?.png' },
   { label: 'TMS', value: 'TerryMS_Island', prefix: 'https://open.api.nexon.com/static/maplestorytw/character/look/', suffix: '?.png' },
   { label: 'MSEA', value: 'TerryMS_Peninsula', prefix: 'https://open.api.nexon.com/static/maplestorysea/character/look/', suffix: '?.png' },
   { label: 'MSN', value: 'TunerMS', prefix: 'https://gamedatahub-static.msu.io/msu/platform/charimages/static/', suffix: '.png' }
@@ -128,7 +129,7 @@ async function searchCharacter() {
 
   if (containsChinese(name.value)) {
     if (region.value !== "ZipanguMS" && region.value !== "TerryMS_Island" && region.value !== "TerryMS_Continent") {
-      error.value = "This region does not allow such IGN. Maybe you're looking for character on JMS or TMS?"
+      error.value = "This region does not allow IGN contains Hanzi/Kanji. Maybe you're looking for character on JMS/TMS/CMS?"
       loading.value = false
       return
     }
@@ -136,7 +137,7 @@ async function searchCharacter() {
 
   if (containsKana(name.value)) {
     if (region.value !== "ZipanguMS") {
-      error.value = "This region does not allow such IGN. Maybe you're looking for character on JMS?"
+      error.value = "This region does not allow IGN contains Kana. Maybe you're looking for character on JMS?"
       loading.value = false
       return
     }
@@ -144,7 +145,7 @@ async function searchCharacter() {
 
   if (containsHangul(name.value)) {
     if (region.value !== "ChangseopMS") {
-      error.value = "This region does not allow such IGN. Maybe you're looking for character on KMS?"
+      error.value = "This region does not allow IGN contains Hangul. Maybe you're looking for character on KMS?"
       loading.value = false
       return
     }
@@ -182,6 +183,10 @@ async function searchCharacter() {
       } else if (region.value === 'TerryMS_Island') {
         warning.value = '⚠️ 注意：如果你的角色名包含中文，可能無法推送。請在上方的文本框修改角色名後生成QR。'
         confirmMessage.value = '角色看起來不對勁？這是因為你的角色正在使用韓版沒有的時裝/裝備/髮型/臉型/皮膚。'
+        jmsConfirmMsg.value = ''
+      } else if (region.value === 'TerryMS_Continent') {
+        warning.value = '⚠️ 注意：如果你的角色名包含中文，可能无法推送。请在上方的文本框修改角色名后，生成二维码。'
+        confirmMessage.value = '角色看起来不对劲？这是因为你的角色正在使用韩服没有的装备/点装/发型/脸型/皮肤。'
         jmsConfirmMsg.value = ''
       } else if (region.value === 'ZipanguMS') {
         warning.value = '⚠️ 注：お名前にかなや漢字が含まれている場合、送信されない可能性があります。上のテキストボックスで文字名を変更してから、QRコードを生成してください。'
