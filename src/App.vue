@@ -119,7 +119,32 @@ async function searchCharacter() {
 
   if (!name.value.trim() || !region.value.trim()) {
     error.value = 'Please enter valid IGN.'
+    loading.value = false
     return
+  }
+
+  if (containsChinese(name.value)) {
+    if (region.value !== "ZipanguMS" && region.value !== "TerryMS_Island" && region.value !== "TerryMS_Continent") {
+      error.value = "This region does not allow such IGN. Maybe you're looking for character on JMS or TMS?"
+      loading.value = false
+      return
+    }
+  }
+
+  if (containsKana(name.value)) {
+    if (region.value !== "ZipanguMS") {
+      error.value = "This region does not allow such IGN. Maybe you're looking for character on JMS?"
+      loading.value = false
+      return
+    }
+  }
+
+  if (containsHangul(name.value)) {
+    if (region.value !== "ChangseopMS") {
+      error.value = "This region does not allow such IGN. Maybe you're looking for character on KMS?"
+      loading.value = false
+      return
+    }
   }
 
   try {
@@ -214,6 +239,19 @@ onMounted(() => {
 onBeforeUnmount(() => {
   window.removeEventListener('resize', updateQrSize)
 })
+
+function containsChinese(str) {
+  return /[\u4E00-\u9FFF]/.test(str)
+}
+
+function containsKana(str) {
+  return /[\u3040-\u309F\u30A0-\u30FF]/.test(str)
+}
+
+function containsHangul(str) {
+  return /[\uAC00-\uD7AF]/.test(str)
+}
+
 </script>
 
 <style>
