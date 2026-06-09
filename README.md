@@ -4,7 +4,7 @@ This is the source code of *Foreigner Character Importer for Lotte World Adventu
 
 ## API Endpoint
 
-The endpoint will be closed after June 15. The original API endpoint is `LWA/v1/GetAvatarCode`.
+The original API endpoint is `LWA/v1/GetAvatarCode`.
 
 - Method: POST
 - Content-Type: application/json
