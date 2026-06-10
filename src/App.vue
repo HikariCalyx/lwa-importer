@@ -202,6 +202,8 @@ async function searchCharacter() {
         jmsConfirmMsg.value = ''
       }
       avatarCode.value = data.avatarCode
+    } else if (data.code === '0000010D') {
+      error.value = data.reason_ja
     } else {
       error.value = 'Character not found'
     }
