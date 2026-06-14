@@ -52,6 +52,27 @@
         </tr>
       </tbody>
     </table>
+
+    <!-- Unavailable Gear Table -->
+    <div v-if="kmsUnavailableGear && Object.keys(kmsUnavailableGear).length > 0" class="image-table">
+      <h3>{{ table_title }}</h3>
+      <table class="gear-table">
+        <thead>
+          <tr>
+            <th>{{ table_col_icon }}</th>
+            <th>{{ table_col_name }}</th>
+          </tr>
+        </thead>
+        <tbody>
+          <tr v-for="(gearName, gearId) in kmsUnavailableGear" :key="gearId">
+            <td class="gear-image-cell">
+              <img :src="getGearImageUrl(gearId)" :alt="gearName" class="gear-icon" />
+            </td>
+            <td>{{ gearName }}</td>
+          </tr>
+        </tbody>
+      </table>
+    </div>
     <!-- Confirm button -->
     <div v-if="warning" class="warning">{{ warning }}</div>
     <div v-if="!loading && imageUrl && regionImageUrl && !confirmed" class="actions">
@@ -90,6 +111,10 @@ const warning = ref('')
 const avatarCode = ref('')
 const confirmMessage = ref('')
 const jmsConfirmMsg = ref('')
+const table_title = ref('')
+const table_col_icon = ref('')
+const table_col_name = ref('')
+const kmsUnavailableGear = ref({})
 
 // Define regions with display label, actual value, and region-specific prefix
 const regions = [
@@ -120,6 +145,7 @@ async function searchCharacter() {
   warning.value = ''
   confirmMessage.value = ''
   jmsConfirmMsg.value = ''
+  kmsUnavailableGear.value = {}
 
   if (!name.value.trim() || !region.value.trim()) {
     error.value = 'Please enter valid IGN.'
@@ -176,30 +202,53 @@ async function searchCharacter() {
           regionImageUrl.value = `${selected.prefix}${data.avatarCode}${selected.suffix}`
         }
       }
+
+      // Capture unavailable gear data
+      if (data.kmsUnavailableGear) {
+        kmsUnavailableGear.value = data.kmsUnavailableGear
+      }
       if (region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU' || region.value === 'TunerMS') {
         warning.value = '⚠️ Notice: If you import character from this region, your IGN cannot be displayed on the huge screen due to limitation.'
         confirmMessage.value = 'Character doesn\'t look right ? That\'s because you\'re using gears, face, hair that unavailable in KMS.'
         jmsConfirmMsg.value = ''
+        table_title.value = 'Unavailable Gears in KMS'
+        table_col_icon = 'Icon'
+        table_col_name = 'Name'
       } else if (region.value === 'TerryMS_Island') {
         warning.value = '⚠️ 注意：如果你的角色名包含中文，可能無法推送。請在上方的文本框修改角色名後生成QR。'
         confirmMessage.value = '角色看起來不對勁？這是因為你的角色正在使用韓版沒有的時裝/裝備/髮型/臉型/皮膚。'
         jmsConfirmMsg.value = ''
+        table_title.value = '韓版沒有的裝備'
+        table_col_icon = '圖示'
+        table_col_name = '名稱'
       } else if (region.value === 'TerryMS_Continent') {
         warning.value = '⚠️ 注意：如果你的角色名包含中文，可能无法推送。请在上方的文本框修改角色名后，生成二维码。'
         confirmMessage.value = '角色看起来不对劲？这是因为你的角色正在使用韩服没有的装备/点装/发型/脸型/皮肤。'
         jmsConfirmMsg.value = ''
+        table_title.value = '韩服没有的装备'
+        table_col_icon = '图标'
+        table_col_name = '名称'
       } else if (region.value === 'ZipanguMS') {
         warning.value = '⚠️ 注：お名前にかなや漢字が含まれている場合、送信されない可能性があります。上のテキストボックスで文字名を変更してから、QRコードを生成してください。'
         confirmMessage.value = 'キャラクターの見た目がおかしい？それは、KMSでは利用できない装備、顔、髪型を使用しているためです。'
         jmsConfirmMsg.value = '<p><a href="https://mushroom-lab.com/my-tools/lotte-world-qr" target="_blank">メイプル研究所のサイトを使ってQRコードを生成することもできます。</a></p>'
+        table_title.value = 'KMSは利用できない装備'
+        table_col_icon = 'アイコン'
+        table_col_name = '名前'
       } else if (region.value === 'TerryMS_Peninsula') {
         warning.value = ''
         confirmMessage.value = 'Character doesn\'t look right ? That\'s because you\'re using gears, face, hair that unavailable in KMS.'
         jmsConfirmMsg.value = ''
+        table_title.value = 'Unavailable Gears in KMS'
+        table_col_icon = 'Icon'
+        table_col_name = 'Name'
       } else {
         warning.value = ''
         confirmMessage.value = ''
         jmsConfirmMsg.value = ''
+        table_title.value = ''
+        table_col_icon = ''
+        table_col_name = ''
       }
       avatarCode.value = data.avatarCode
     } else if (data.code === '0000010D') {
@@ -261,6 +310,18 @@ function containsKana(str) {
 
 function containsHangul(str) {
   return /[\uAC00-\uD7AF]/.test(str)
+}
+
+function getGearImageUrl(gearID) {
+  if (region.value === 'TerryMS_Continent' || region.value === 'TerryMS_Island' || region.value === 'ZipanguMS' || region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU' || region.value === 'TunerMS') {
+    return `https://open.api.nexon.com/static/maplestorytw/ItemIcon/${gearID}.png`
+  } else if (region.value === 'TerryMS_Peninsula') {
+    return `https://open.api.nexon.com/static/maplestorysea/ItemIcon/${gearID}.png`
+  } else if (region.value === 'ChangseopMS') {
+    return `https://open.api.nexon.com/static/maplestory/ItemIcon/${gearID}.png`
+  }
+  // Fallback to a default icon
+  return `https://open.api.nexon.com/static/maplestory/ItemIcon/${gearID}.png`
 }
 
 </script>
@@ -409,6 +470,53 @@ body {
   text-align: center;
 }
 
+.gear-table {
+  width: 100%;
+  border-collapse: collapse;
+  margin-top: 1rem;
+  background-color: #f9f9f9;
+  border: 1px solid #ddd;
+}
+
+.gear-table thead {
+  background-color: #3498db;
+  color: white;
+}
+
+.gear-table th,
+.gear-table td {
+  padding: 0.75rem;
+  text-align: left;
+  border-bottom: 1px solid #ddd;
+}
+
+.gear-table tbody tr:hover {
+  background-color: #f0f0f0;
+}
+
+.gear-table h3 {
+  margin: 1rem 0 0.5rem 0;
+}
+
+.gear-image-cell {
+  text-align: center;
+  vertical-align: middle;
+}
+
+.gear-icon {
+  width: 50px;
+  height: 50px;
+  object-fit: contain;
+  image-rendering: pixelated;
+}
+
+@media (max-width: 600px) {
+  .gear-icon {
+    width: 32px;
+    height: 32px;
+  }
+}
+
 /* Mobile: stack image + caption together */
 @media (max-width: 600px) {
 
@@ -422,6 +530,33 @@ body {
 
   .image-cell {
     margin-bottom: 1.5rem;
+  }
+
+  /* Keep gear table in single line on mobile */
+  .gear-table {
+    display: table;
+    width: 100%;
+  }
+
+  .gear-table tbody,
+  .gear-table tr {
+    display: table-row;
+  }
+
+  .gear-table td,
+  .gear-table th {
+    display: table-cell;
+    padding: 0.75rem 0.5rem;
+  }
+
+  .gear-image-cell {
+    width: 40px;
+    padding: 0.5rem 0.25rem;
+  }
+
+  .gear-table td {
+    padding: 0.5rem 0.4rem;
+    font-size: 0.9rem;
   }
 }
 
