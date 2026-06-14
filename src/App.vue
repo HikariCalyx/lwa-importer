@@ -313,12 +313,14 @@ function containsHangul(str) {
 }
 
 function getGearImageUrl(gearID) {
-  if (region.value === 'TerryMS_Continent' || region.value === 'TerryMS_Island' || region.value === 'ZipanguMS' || region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU' || region.value === 'TunerMS') {
+  if (region.value === 'TerryMS_Continent' || region.value === 'TerryMS_Island' || region.value === 'ZipanguMS' || region.value === 'InkwellMS_NA' || region.value === 'InkwellMS_EU') {
     return `https://open.api.nexon.com/static/maplestorytw/ItemIcon/${gearID}.png`
   } else if (region.value === 'TerryMS_Peninsula') {
     return `https://open.api.nexon.com/static/maplestorysea/ItemIcon/${gearID}.png`
   } else if (region.value === 'ChangseopMS') {
     return `https://open.api.nexon.com/static/maplestory/ItemIcon/${gearID}.png`
+  } else if (region.value === 'TunerMS') {
+    return `https://api-static.msu.io/itemimages/icon/${gearID}.png`
   }
   // Fallback to a default icon
   return `https://open.api.nexon.com/static/maplestory/ItemIcon/${gearID}.png`
