@@ -514,51 +514,61 @@ body {
 
 @media (max-width: 600px) {
   .gear-icon {
-    width: 32px;
-    height: 32px;
+    width: 48px;
+    height: 48px;
   }
-}
 
-/* Mobile: stack image + caption together */
-@media (max-width: 600px) {
-
-  .image-table,
-  .image-table tbody,
-  .image-table tr,
-  .image-table td {
-    display: block;
+  /* Make the wrapper full width */
+  .image-table {
+    padding: 0;
+    margin: 0;
     width: 100%;
   }
 
-  .image-cell {
-    margin-bottom: 1.5rem;
-  }
-
-  /* Keep gear table in single line on mobile */
   .gear-table {
-    display: table;
     width: 100%;
+    display: block;
+    background: transparent !important;
+    border: none;
+    overflow-x: auto;
+    -webkit-overflow-scrolling: touch;
+    margin-top: 0.75rem;
   }
 
-  .gear-table tbody,
+  .gear-table thead {
+    display: none;
+  }
+
   .gear-table tr {
-    display: table-row;
-  }
-
-  .gear-table td,
-  .gear-table th {
-    display: table-cell;
-    padding: 0.4rem 0.3rem;
-  }
-
-  .gear-image-cell {
-    width: auto;
-    padding: 0.4rem 0.3rem;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 255, 255, 0.82);   /* Semi-transparent - adjust 0.82 as needed */
+    border-bottom: 1px solid rgba(0,0,0,0.12);
+    padding: 0.8rem 1rem;
+    margin-bottom: 0.65rem;
+    border-radius: 10px;
+    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
   }
 
   .gear-table td {
-    padding: 0.4rem 0.3rem;
-    font-size: 0.9rem;
+    display: flex;
+    align-items: center;
+    padding: 0;
+    border: none;
+  }
+
+  /* Icon cell */
+  .gear-image-cell {
+    flex: 0 0 64px;
+    justify-content: center;
+    padding-right: 18px;
+  }
+
+  /* Name cell */
+  .gear-table td:last-child {
+    flex: 1;
+    font-size: 1.02rem;
+    font-weight: 500;
   }
 }
 
