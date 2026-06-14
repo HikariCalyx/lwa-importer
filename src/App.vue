@@ -212,43 +212,43 @@ async function searchCharacter() {
         confirmMessage.value = 'Character doesn\'t look right ? That\'s because you\'re using gears, face, hair that unavailable in KMS.'
         jmsConfirmMsg.value = ''
         table_title.value = 'Unavailable Gears in KMS'
-        table_col_icon = 'Icon'
-        table_col_name = 'Name'
+        table_col_icon.value = 'Icon'
+        table_col_name.value = 'Name'
       } else if (region.value === 'TerryMS_Island') {
         warning.value = '⚠️ 注意：如果你的角色名包含中文，可能無法推送。請在上方的文本框修改角色名後生成QR。'
         confirmMessage.value = '角色看起來不對勁？這是因為你的角色正在使用韓版沒有的時裝/裝備/髮型/臉型/皮膚。'
         jmsConfirmMsg.value = ''
         table_title.value = '韓版沒有的裝備'
-        table_col_icon = '圖示'
-        table_col_name = '名稱'
+        table_col_icon.value = '圖示'
+        table_col_name.value = '名稱'
       } else if (region.value === 'TerryMS_Continent') {
         warning.value = '⚠️ 注意：如果你的角色名包含中文，可能无法推送。请在上方的文本框修改角色名后，生成二维码。'
         confirmMessage.value = '角色看起来不对劲？这是因为你的角色正在使用韩服没有的装备/点装/发型/脸型/皮肤。'
         jmsConfirmMsg.value = ''
         table_title.value = '韩服没有的装备'
-        table_col_icon = '图标'
-        table_col_name = '名称'
+        table_col_icon.value = '图标'
+        table_col_name.value = '名称'
       } else if (region.value === 'ZipanguMS') {
         warning.value = '⚠️ 注：お名前にかなや漢字が含まれている場合、送信されない可能性があります。上のテキストボックスで文字名を変更してから、QRコードを生成してください。'
         confirmMessage.value = 'キャラクターの見た目がおかしい？それは、KMSでは利用できない装備、顔、髪型を使用しているためです。'
         jmsConfirmMsg.value = '<p><a href="https://mushroom-lab.com/my-tools/lotte-world-qr" target="_blank">メイプル研究所のサイトを使ってQRコードを生成することもできます。</a></p>'
         table_title.value = 'KMSは利用できない装備'
-        table_col_icon = 'アイコン'
-        table_col_name = '名前'
+        table_col_icon.value = 'アイコン'
+        table_col_name.value = '名前'
       } else if (region.value === 'TerryMS_Peninsula') {
         warning.value = ''
         confirmMessage.value = 'Character doesn\'t look right ? That\'s because you\'re using gears, face, hair that unavailable in KMS.'
         jmsConfirmMsg.value = ''
         table_title.value = 'Unavailable Gears in KMS'
-        table_col_icon = 'Icon'
-        table_col_name = 'Name'
+        table_col_icon.value = 'Icon'
+        table_col_name.value = 'Name'
       } else {
         warning.value = ''
         confirmMessage.value = ''
         jmsConfirmMsg.value = ''
         table_title.value = ''
-        table_col_icon = ''
-        table_col_name = ''
+        table_col_icon.value = ''
+        table_col_name.value = ''
       }
       avatarCode.value = data.avatarCode
     } else if (data.code === '0000010D') {
@@ -487,7 +487,7 @@ body {
 
 .gear-table th,
 .gear-table td {
-  padding: 0.75rem;
+  padding: 0.5rem 0.4rem;
   text-align: left;
   border-bottom: 1px solid #ddd;
 }
@@ -548,16 +548,16 @@ body {
   .gear-table td,
   .gear-table th {
     display: table-cell;
-    padding: 0.75rem 0.5rem;
+    padding: 0.4rem 0.3rem;
   }
 
   .gear-image-cell {
-    width: 40px;
-    padding: 0.5rem 0.25rem;
+    width: auto;
+    padding: 0.4rem 0.3rem;
   }
 
   .gear-table td {
-    padding: 0.5rem 0.4rem;
+    padding: 0.4rem 0.3rem;
     font-size: 0.9rem;
   }
 }
