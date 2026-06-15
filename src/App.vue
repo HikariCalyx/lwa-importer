@@ -54,7 +54,7 @@
     </table>
 
     <!-- Unavailable Gear Table -->
-    <div v-if="kmsUnavailableGear && Object.keys(kmsUnavailableGear).length > 0" class="image-table">
+    <div v-if="kmsUnavailableGear && Object.keys(kmsUnavailableGear).length > 0" class="gear-table">
       <h3>{{ table_title }}</h3>
       <table class="gear-table">
         <thead>
@@ -476,7 +476,7 @@ body {
   width: 100%;
   border-collapse: collapse;
   margin-top: 1rem;
-  background-color: #f9f9f9;
+  background-color: transparent;
   border: 1px solid #ddd;
 }
 
@@ -523,6 +523,17 @@ body {
     padding: 0;
     margin: 0;
     width: 100%;
+    display: block;
+  }
+
+  .image-table tbody tr {
+    display: flex;
+    flex-direction: column;
+  }
+
+  .image-cell {
+    display: block;
+    width: 100%;
   }
 
   .gear-table {
@@ -530,8 +541,6 @@ body {
     display: block;
     background: transparent !important;
     border: none;
-    overflow-x: auto;
-    -webkit-overflow-scrolling: touch;
     margin-top: 0.75rem;
   }
 
@@ -548,12 +557,13 @@ body {
     margin-bottom: 0.65rem;
     border-radius: 10px;
     box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+    width: 100%;
   }
 
   .gear-table td {
     display: flex;
     align-items: center;
-    padding: 0;
+    padding: 0 1rem;
     border: none;
   }
 
@@ -562,6 +572,7 @@ body {
     flex: 0 0 64px;
     justify-content: center;
     padding-right: 18px;
+    padding-left: 0;
   }
 
   /* Name cell */
