@@ -474,15 +474,14 @@ body {
 
 .gear-table {
   width: 100%;
-  border-collapse: collapse;
+  display: block;
+  background: transparent !important;
+  border: none;
   margin-top: 1rem;
-  background-color: transparent;
-  border: 1px solid #ddd;
 }
 
 .gear-table thead {
-  background-color: #3498db;
-  color: white;
+  display: none;
 }
 
 .gear-table th,
@@ -492,8 +491,20 @@ body {
   border-bottom: 1px solid #ddd;
 }
 
+.gear-table tbody tr {
+  display: flex;
+  align-items: center;
+  background: rgba(255, 255, 255, 0.82);
+  border-bottom: 1px solid rgba(0,0,0,0.12);
+  padding: 0.8rem 1rem;
+  margin-bottom: 0.65rem;
+  border-radius: 10px;
+  box-shadow: 0 2px 8px rgba(0,0,0,0.1);
+  width: 100%;
+}
+
 .gear-table tbody tr:hover {
-  background-color: #f0f0f0;
+  background-color: rgba(240, 240, 240, 0.82);
 }
 
 .gear-table h3 {
@@ -503,6 +514,25 @@ body {
 .gear-image-cell {
   text-align: center;
   vertical-align: middle;
+  flex: 0 0 64px;
+  justify-content: center;
+  padding-right: 18px;
+  padding-left: 0;
+  display: flex;
+  align-items: center;
+}
+
+.gear-table td {
+  display: flex;
+  align-items: center;
+  padding: 0 1rem;
+  border: none;
+}
+
+.gear-table td:last-child {
+  flex: 1;
+  font-size: 1rem;
+  font-weight: 500;
 }
 
 .gear-icon {
@@ -534,52 +564,6 @@ body {
   .image-cell {
     display: block;
     width: 100%;
-  }
-
-  .gear-table {
-    width: 100%;
-    display: block;
-    background: transparent !important;
-    border: none;
-    margin-top: 0.75rem;
-  }
-
-  .gear-table thead {
-    display: none;
-  }
-
-  .gear-table tr {
-    display: flex;
-    align-items: center;
-    background: rgba(255, 255, 255, 0.82);   /* Semi-transparent - adjust 0.82 as needed */
-    border-bottom: 1px solid rgba(0,0,0,0.12);
-    padding: 0.8rem 1rem;
-    margin-bottom: 0.65rem;
-    border-radius: 10px;
-    box-shadow: 0 2px 8px rgba(0,0,0,0.1);
-    width: 100%;
-  }
-
-  .gear-table td {
-    display: flex;
-    align-items: center;
-    padding: 0 1rem;
-    border: none;
-  }
-
-  /* Icon cell */
-  .gear-image-cell {
-    flex: 0 0 64px;
-    justify-content: center;
-    padding-right: 18px;
-    padding-left: 0;
-  }
-
-  /* Name cell */
-  .gear-table td:last-child {
-    flex: 1;
-    font-size: 1.02rem;
-    font-weight: 500;
   }
 }
 
