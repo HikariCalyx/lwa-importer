@@ -1,3 +1,8 @@
+> Notice
+>
+> This website is now discontinued.
+> You can still lookup your characters, but the big screen was removed from Lotte World Adventure, therefore the website will no longer receive update.
+
 # lwa-importer
 
 This is the source code of *Foreigner Character Importer for Lotte World Adventure*.
