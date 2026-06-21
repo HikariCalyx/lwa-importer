@@ -1,5 +1,20 @@
 <template>
   <div id="app" class="container">
+    <!-- Welcome popup modal -->
+    <div v-if="showModal" class="modal-overlay" @click.self="closeModal">
+      <div class="modal-box" role="dialog" aria-modal="true" aria-labelledby="modal-title">
+        <button class="modal-close" aria-label="Close" @click="closeModal">&times;</button>
+        <h3 id="modal-title">Notice</h3>
+        <p>
+          Thank you for your interests with this website.
+          Unfortunately, the big screen has been removed from Lotte World Adventure,
+          so you cannot no longer push your character on the big screen.
+        </p>
+        <p><a href="https://github.com/HikariCalyx/lwa-importer/" target="_blank">You can find the source code of this website here.</a></p>
+        <button class="full-width-btn" @click="closeModal">Got it</button>
+      </div>
+    </div>
+
     <h2>Foreigner Character Importer for Lotte World Adventure</h2>
 
     <div class="form-grid">
@@ -98,6 +113,7 @@ import { ref, onMounted, onBeforeUnmount, nextTick } from 'vue'
 import QrcodeVue from 'qrcode.vue'
 
 const isZhCN = ref(false)
+const showModal = ref(true)
 const qrValue = ref('')
 const qrSize = ref(400) // default
 const name = ref('')
@@ -300,6 +316,10 @@ onBeforeUnmount(() => {
   window.removeEventListener('resize', updateQrSize)
 })
 
+function closeModal() {
+  showModal.value = false
+}
+
 function containsChinese(str) {
   return /[\u4E00-\u9FFF]/.test(str)
 }
@@ -407,6 +427,47 @@ body {
 .error {
   color: red;
   margin-top: 1em;
+}
+
+.modal-overlay {
+  position: fixed;
+  inset: 0;
+  background: rgba(0, 0, 0, 0.55);
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  z-index: 1000;
+  padding: 1em;
+}
+
+.modal-box {
+  position: relative;
+  background: #fff;
+  border-radius: 10px;
+  padding: 1.5em;
+  max-width: 420px;
+  width: 100%;
+  box-shadow: 0 8px 30px rgba(0, 0, 0, 0.3);
+}
+
+.modal-box h3 {
+  margin-top: 0;
+}
+
+.modal-close {
+  position: absolute;
+  top: 0.5em;
+  right: 0.5em;
+  background: none;
+  border: none;
+  font-size: 1.5em;
+  line-height: 1;
+  cursor: pointer;
+  color: #555;
+}
+
+.modal-close:hover {
+  color: #000;
 }
 
 .spinner {
