@@ -1,7 +1,10 @@
 > Notice
 >
-> This website is now discontinued.
+> This website is now archived.
+>
 > You can still lookup your characters, but the big screen was removed from Lotte World Adventure, therefore the website will no longer receive update.
+>
+> I'm glad to see players manage to push their non-KMS characters to Lotte World Adventure for a piece of unforgettable memory.
 
 # lwa-importer
 
